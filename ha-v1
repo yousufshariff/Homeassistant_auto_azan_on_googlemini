@@ -1,0 +1,210 @@
+homeassistant:
+  latitude: 37.55091
+  longitude: -121.98217
+  unit_system: metric
+  time_zone: USA/California
+  
+default_config:
+discovery:
+media_extractor:
+sun:
+
+# Islamic prayer times integration
+islamic_prayer_times:
+    calculation_method: mwl
+
+# Sensors
+sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'time_date'
+  - platform: template
+    sensors:
+      salah_fajr:
+        friendly_name: "Salah Fajr"
+        value_template: >
+           {%- set a = states("sensor.fajr_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.fajr_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_dhuhr:
+        friendly_name: "Salah Dhuhr"
+        value_template: >
+           {%- set a = states("sensor.dhuhr_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.dhuhr_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_asr:
+        friendly_name: "Salah Asr"
+        value_template: >
+           {%- set a = states("sensor.asr_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.asr_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_maghrib:
+        friendly_name: "Salah Maghrib"
+        value_template: >
+           {%- set a = states("sensor.maghrib_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.maghrib_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_isha:
+        friendly_name: "Salah Isha"
+        value_template: >
+           {%- set a = states("sensor.isha_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.isha_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDvKNFzR4DHDhgsFEN+3qSxrMs08Pb1E0b0SmtBtjn3WlV47Nchc3nZozZpXRikPwNdfKM4/hQcSQkAsa1JT8wZHcQXGoU9WMAJ6Y9ae/5M6HRknGOBI8YPTOqARCoP3Rw09DQKD7A++pvir56t8U1bl95pdcUGIGE3iPxITMifjVU9b3KKSd2ZcELpQXLf4O3hf7cHjvOt3WK8DhR4Ubb0h+YyceFP6fkoAZUhEIDKHyePPvCSIvSeM87Ofd9WPHdThcfUxb1mS/moq4TFFZcICnKdNKpLQ5xAoQmIpDPsLuxgaF2YiHRU4/HK9Ynvl960PDswT8+Aj6IhaSV77KubQ5HTZ9ant9/v6T1dzxbnXi0MesX3YTxGT997uaBVIr+GRFSlSEvyPJ9Iqs0OMJASTHeQRz/Ihe5eIQSpC5TJUHGjHHNPzL31toFKFPpGS7yA45SkUlf8tlTkV0Ux2A79L8guIkaSGxzy818DHzmr2RG/52yjMqN6aTISOCqSChk= kgenskowsky@NI-NTB-256.local
+
+
+Speakers:
+
+
+
+/config/configuration.yaml
+
+homeassistant:
+  latitude: 37.55091
+  longitude: -121.98217
+  unit_system: metric
+  time_zone: America/Los_Angeles
+  
+default_config:
+discovery:
+media_extractor:
+sun:
+
+# Islamic prayer times integration
+islamic_prayer_times:
+    calculation_method: isna
+
+# Sensors
+sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'time_date'
+  - platform: template
+    sensors:
+      salah_fajr:
+        friendly_name: "Salah Fajr"
+        value_template: >
+           {%- set a = states("sensor.fajr_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.fajr_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_dhuhr:
+        friendly_name: "Salah Dhuhr"
+        value_template: >
+           {%- set a = states("sensor.dhuhr_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.dhuhr_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_asr:
+        friendly_name: "Salah Asr"
+        value_template: >
+           {%- set a = states("sensor.asr_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.asr_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_maghrib:
+        friendly_name: "Salah Maghrib"
+        value_template: >
+           {%- set a = states("sensor.maghrib_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.maghrib_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_isha:
+        friendly_name: "Salah Isha"
+        value_template: >
+           {%- set a = states("sensor.isha_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.isha_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+_______________________________
+
+/config/automations.yaml
+
+# Automation for 5 times Azan
+- action:
+  - alias: 'Azan'
+    data:
+      entity_id: media_player.office_speaker
+      media_content_id: https://www.islamcan.com/audio/adhan/azan2.mp3
+      media_content_type: audio/mp3
+    service: media_extractor.play_media
+  - data:
+      entity_id: media_player.office_speaker
+      volume_level: '0.9'
+    service: media_player.volume_set
+  alias: Adhan
+  trigger:
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.fajr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.dhuhr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.asr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.maghrib_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.isha_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+
+### Restart HA to force update Islamic Time Sensors at 1AM ###
+- alias: Restart HA
+  trigger: 
+    platform: time
+    at: "01:00:00"
+  action:
+    - service: homeassistant.restart
+
+__________________________________________
+
+media_player.family_room_clock
+media_player.office_speaker
