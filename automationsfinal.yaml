@@ -2,6 +2,177 @@
 - action:
   - alias: 'Azan'
     data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      media_content_id: https://www.islamcan.com/audio/adhan/azan20.mp3
+      media_content_type: audio/mp3
+    service: media_extractor.play_media
+  - data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      volume_level: '0.7'
+    service: media_player.volume_set
+  alias: Adhan
+  trigger:
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.fajr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.dhuhr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.asr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.maghrib_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.isha_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+# Automation for 4 times Azan
+#- action:
+#  - alias: ''
+#    data:
+#      entity_id: media_player.office_speaker, media_player.family_room_clock, media_player.office_display
+#      media_content_id: https://www.islamcan.com/audio/adhan/azan2.mp3
+#      media_content_type: audio/mp3
+#    service: media_extractor.play_media
+#  - data:
+#      entity_id: media_player.office_speaker, media_player.family_room_clock, media_player.office_display
+#      volume_level: '0.7'
+#    service: media_player.volume_set
+#  alias: Adhan
+#  condition: []
+#  id: '1517693010922'
+#  trigger:
+#    - platform: template
+#      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_dhuhr"), "%Y-%m-%dT%H:%M:%S")) }}'
+#    - platform: template
+#      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_asr"), "%Y-%m-%dT%H:%M:%S"))+3600 }}'
+#    - platform: template
+#      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_maghrib"), "%Y-%m-%dT%H:%M:%S")) }}'
+#    - platform: template
+#      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_isha"), "%Y-%m-%dT%H:%M:%S")) }}'
+# Seperate Automation for Fajr Adhan
+#- action:
+# - data:
+#      entity_id: media_player.office_speaker, media_player.family_room_clock
+#      media_content_id: 'https://youtu.be/VHcRTIcRvN8'
+#      media_content_type: video/youtube
+#    service: media_extractor.play_media
+#  - data:
+#      entity_id: media_player.office_speaker, media_player.family_room_clock
+#     volume_level: '0.9'
+#    service: media_player.volume_set
+#  alias: Fajr Adhan
+#  condition: []
+#  id: '1517693010922'
+#  trigger:
+#    - platform: template
+#      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_fajr"), "%Y-%m-%dT%H:%M:%S")) }}'
+
+######################### Azakaar 1 ##################################
+- action:
+  - data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      media_content_id: https://music.watannetwork.com/musicExcel/Azkar.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      volume_level: '0.7'
+    service: media_player.play_media
+  alias: Play Azkaar Sabah
+  trigger:
+    - platform: time
+      at: "07:30:00"
+
+#########################Surah Waqiah##################################
+- action:
+  - data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/056-al-waqiah.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      volume_level: '0.7'
+    service: media_player.play_media
+  alias: Play Surah Waqiah
+  trigger:
+    - platform: time
+      at: "17:30:00"
+      
+#########################Surah Kahf##################################
+- action:
+  - data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/018-al-kahf.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      volume_level: '0.7'
+    service: media_player.play_media
+  alias: Play Surah Kahf
+  trigger:
+    - platform: time
+      at: "06:30:00"
+      
+#########################Surah Yaseen##################################
+- action:
+  - data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/036-ya-sin.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      volume_level: '0.7'
+    service: media_player.play_media
+  alias: Play Surah Yaseen
+  trigger:
+    - platform: time
+      at: "08:00:00"
+      
+######################### Azakaar 2 ##################################
+- action:
+  - data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      media_content_id: https://music.watannetwork.com/musicExcel/Azkar2.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      volume_level: '0.7'
+    service: media_player.play_media
+  alias: Play Azkaar Masa
+  trigger:
+    - platform: time
+      at: "19:00:00"
+###############################Surah Mulk#####################################
+- action:
+  - data:
+      entity_id: media_player.office_speaker, media_player.family_room_clock
+      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/067-al-mulk.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.office_speaker, media_player.family_room_clock
+      volume_level: '0.7'
+    service: media_player.play_media
+  alias: Play Surah Mulk
+  trigger:
+    - platform: time
+      at: "22:30:00"
+      
+################################### HA Restart#################################      
+    
+- alias: Restart HA
+  trigger:
+    platform: time
+    at: "01:00:00"
+  action:
+    - service: homeassistant.restart
+
+______________________________
+# Automation for 5 times Azan
+- action:
+  - alias: 'Azan'
+    data:
       entity_id: media_player.office_speaker, media_player.family_room_clock
       media_content_id: https://s3.intahnet.co.uk/athan/normal.mp3
       media_content_type: audio/mp3
