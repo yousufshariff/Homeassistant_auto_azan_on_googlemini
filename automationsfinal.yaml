@@ -3,7 +3,7 @@
   - alias: 'Azan'
     data:
       entity_id: media_player.kids_speaker, media_player.family_room_clock
-      media_content_id: https://www.islamcan.com/audio/adhan/azan20.mp3
+      media_content_id: https://download.tvquran.com/download/selections/180/58b0dac02106f.mp3
       media_content_type: audio/mp3
     service: media_extractor.play_media
   - data:
