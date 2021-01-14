@@ -1,9 +1,9 @@
-# Automation for 5 times Azan
+# Automation for Fajr Azan
 - action:
-  - alias: 'Azan'
+  - alias: 'Fajr Azan'
     data:
-      entity_id: media_player.office_speaker, media_player.family_room_clock
-      media_content_id: https://s3.intahnet.co.uk/athan/normal.mp3
+      entity_id: media_player.kids_speaker, media_player.family_room_clock
+      media_content_id: https://media.sd.ma/assabile/adhan_3435370/dcc77fd7b6a1.mp3
       media_content_type: audio/mp3
     service: media_extractor.play_media
   - data:
@@ -22,7 +22,8 @@
     data:
       entity_id: media_player.kids_speaker, media_player.family_room_clock
 #      media_content_id: https://www.islamcan.com/audio/adhan/azan6.mp3
-      media_content_id: http://praytimes.org/audio/adhan/Sunni/Adhan%20Madina.mp3
+#      media_content_id: http://praytimes.org/audio/adhan/Sunni/Adhan%20Madina.mp3
+      media_content_id: https://media.sd.ma/assabile/adhan_3435370/83e17f5db5a7.mp3
       media_content_type: audio/mp3
     service: media_extractor.play_media
   - data:
