@@ -1,0 +1,100 @@
+Upgrade venv to 3.7.3 from 3.5
+
+How to upgrade Python venv from 3.5 to 3.7.3
+If you are running Home Assistant on a Raspberry Pi with Python and manually installed it, you prob are running it in a Virtual Environment (venv) like me.
+
+Now with the release of HomeAssistant 0.94, there is a notification that you should update Python 3.5 to a later version. I guess you are reading this post because you are also having this message and thus are running on 3.5.3. This is the default when you install Python with apt-get and this is pretty old.
+
+So… How to update?!
+
+Upgrading Python Step-by-Step
+Follow the steps below to upgrade your Python setup to 3.7.3.
+
+1. Requirements
+First of all make sure you have all the required packages to start the custom installation of Python. Run:
+
+$ sudo apt-get install build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev
+
+This can take a few seconds to install, or if you have it installed it will show you no update/installation is required.
+
+2. Install Python 3.7.3
+Now we are going to install Python, next to the existing 2.7 and 3.5 installation. To verify if you have the same you can run:
+
+$ python –version
+$ python3 –version
+
+Both will show you an older version, the first should output something like 2.7.x and the second prob 3.5.3.
+
+Now install Python 3.7.3 from source under the /home/pi folder and as Pi user:
+
+$ wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz
+$ tar -xzf Python-3.7.3.tgz
+$ cd Python-3.7.3
+$ ./configure
+$ make -j 4
+$ sudo make install
+
+This can take some time to complete, just be patient!
+
+3. Backup current packages
+Now we can take a backup of the custom packages that where installed through time for custom components or integrations within HomeAssistant. We make a backup so we try to use the same versions as for Python 3.5 to minimize problems with integrations.
+
+$ cd /home/homeassistant/
+$ sudo  -u homeassistant -H -s
+$ source /srv/homeassistant/bin/activate
+$ pip3 freeze –local > requirements.txt
+
+Verify if the requirements.txt has the packages listed
+
+$ cat requirements.txt
+
+As you might notice, we change to the HomeAssistant home folder and change the user to the homeassistant user. This makes sure we have permissions to write the txt file. After the pip3 freeze command we have a requirements.txt file, and we check it to make sure everything is listed.
+
+4. Remove old VENV folder and create new one
+As we now have installed the 3.7.3 python version we have to migrate HomeAssistant. So we have to remove the current venv so we can rebuild a new one with Python 3.7.3 as base Python version.
+
+$ sudo rm -r /srv/homeassistant/
+
+This will remove the homeassistant folder in /srv/.
+
+Next change to the Pi user and create the new folder
+
+$ mkdir /srv/homeassistant
+$ chown homeassistant:homeassistant /srv/homeassistant
+
+Now we have created the new folder and changed the owner to HomeAssistant user, like we did while we were installing HomeAssistant for the first time (on 3.5.3 that is).
+
+5. Create the new venv on python 3.7.3
+Next we want to create a new virtual environment (venv) with the 3.7.3 python version. We can do this by running:
+
+$ sudo -u homeassistant -H -s
+$ cd /srv/homeassistant
+$ python3.7 -m venv .
+$ source /srv/homeassistant/bin/activate
+
+We changed to the HomeAssistant user and then created (with python3.7 the new venv in the folder. Also as last step we activated the environment (venv). Now first verify if we are running on 3.7.3 (just to make sure you are following my commands 🙂
+
+$ python –version
+$ python3 –version
+$ pip3 –version
+
+These should all show python 3.7.3 somewhere!
+
+6. Install HomeAssistant and packages
+Now we are almost down, but this step will take some time 😉
+
+As we have a requirements.txt file we now want to install all the requirements again so HomeAssistant will run smootly as before. So we are going to install them with pip3 and the requirements.txt file as a base.
+
+$ cd /home/homeassistant
+$ pip3 install -r requirements.txt
+
+This will take some time. It might be possible the setup fails somewhere. If it fails write down the package on where it fails and edit the file (you can do this while you are in the venv).
+
+$ nano requirements.txt
+
+and add a # before the line that was failing
+
+And now lets wait till it is finished. It took me about 45mins to complete on a Raspberry Pi 3B+ but it depends on the amount of packages you are running. Also it failed on a Mind custom component and PKG.
+
+Now restart HomeAssistant and have fun!
+$ sudo systemctl restart home-assistant@homeassistant
