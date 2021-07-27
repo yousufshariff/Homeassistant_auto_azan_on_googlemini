@@ -60,3 +60,74 @@ tts:
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
+
+
+July 2021 edits
+
+omeassistant:
+  latitude: 37.951861
+  longitude: -121.7589794
+  unit_system: metric
+  time_zone: America/Los_Angeles
+
+default_config:
+discovery:
+media_extractor:
+sun:
+
+# Islamic prayer times integration
+islamic_prayer_times:
+    calculation_method: isna
+
+# Sensors
+#- entity: sensor.time
+#- entity: sensor.date
+#- entity: sensor.time_date
+
+sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'time_date'
+  - platform: template
+    sensors:
+      salah_fajr:
+        friendly_name: "Salah Fajr"
+        value_template: >
+           {%- set a = states("sensor.fajr_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.fajr_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_dhuhr:
+        friendly_name: "Salah Dhuhr"
+        value_template: >
+           {%- set a = states("sensor.dhuhr_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.dhuhr_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_asr:
+        friendly_name: "Salah Asr"
+        value_template: >
+           {%- set a = states("sensor.asr_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.asr_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_maghrib:
+        friendly_name: "Salah Maghrib"
+        value_template: >
+           {%- set a = states("sensor.maghrib_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.maghrib_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+      salah_isha:
+        friendly_name: "Salah Isha"
+        value_template: >
+           {%- set a = states("sensor.isha_prayer").split("T")[1].split(":")[0] -%}
+           {%- set b = states("sensor.isha_prayer").split("T")[1].split(":")[1] -%}
+           {{ a + ":" + b }}
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
