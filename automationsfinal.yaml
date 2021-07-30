@@ -145,12 +145,32 @@
     - service: homeassistant.restart
     
 ##july 2021 ##final    
+# Automation for Fajr Azan
+- action:
+  - alias: 'Fajr Azan'
+    data:
+      entity_id: media_player.azan_group
+      media_content_id: https://media.sd.ma/assabile/adhan_3435370/dcc77fd7b6a1.mp3
+      media_content_type: audio/mp3
+    service: media_extractor.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.6'
+    service: media_player.volume_set
+  alias: Fajr Adhan
+  trigger:
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.fajr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+
+#########################################################################
 # Automation for 4 times Azan
 - action:
   - alias: 'Azan'
     data:
       entity_id: media_player.azan_group
-      media_content_id: https://www.islamcan.com/audio/adhan/azan2.mp3
+#      media_content_id: https://www.islamcan.com/audio/adhan/azan6.mp3
+      media_content_id: http://praytimes.org/audio/adhan/Sunni/Adhan%20Madina.mp3
+#      media_content_id: https://media.sd.ma/assabile/adhan_3435370/83e17f5db5a7.mp3
       media_content_type: audio/mp3
     service: media_extractor.play_media
   - data:
@@ -160,29 +180,13 @@
   alias: Adhan
   trigger:
     - platform: template
-      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_dhuhr"), "%Y-%m-%dT%H:%M:%S")) }}'
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.dhuhr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
     - platform: template
-      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_asr"), "%Y-%m-%dT%H:%M:%S"))+3600 }}'
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.asr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
     - platform: template
-      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_maghrib"), "%Y-%m-%dT%H:%M:%S")) }}'
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.maghrib_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
     - platform: template
-      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_isha"), "%Y-%m-%dT%H:%M:%S")) }}'
-
-- action:
-  - alias: 'Azan Fajr'
-    data:
-      entity_id: media_player.office_speaker, media_player.family_room_clock
-      media_content_id: https://media.sd.ma/assabile/adhan_3435370/dcc77fd7b6a1.mp3
-      media_content_type: audio/mp3
-    service: media_extractor.play_media
-  - data:
-      entity_id: media_player.azan_group
-      volume_level: '0.6'
-    service: media_player.volume_set
-  alias: Adhan_Fajr
-  trigger:
-    - platform: template
-      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_fajr"), "%Y-%m-%dT%H:%M:%S")) }}' 
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.isha_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
 ######################### Azakaar 1 ##################################
 - action:
   - data:
