@@ -1,3 +1,247 @@
+##Dec25th 2021##
+# Automation for Fajr Azan
+- action:
+  - alias: 'Fajr Azan'
+    data:
+      entity_id: media_player.azan_group
+      media_content_id: https://media.sd.ma/assabile/adhan_3435370/dcc77fd7b6a1.mp3
+      media_content_type: audio/mp3
+    service: media_extractor.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.6'
+    service: media_player.volume_set
+  alias: Fajr Adhan
+  trigger:
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.fajr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+
+#########################################################################
+# Automation for Duhr Azan
+- action:
+  - alias: 'Azan Duhr'
+    data:
+      entity_id: media_player.azan_group
+      media_content_id: https://www.islamcan.com/audio/adhan/azan6.mp3
+#      media_content_id: http://praytimes.org/audio/adhan/Sunni/Adhan%20Madina.mp3
+#      media_content_id: https://media.sd.ma/assabile/adhan_3435370/83e17f5db5a7.mp3
+      media_content_type: audio/mp3
+    service: media_extractor.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.6'
+    service: media_player.volume_set
+  alias: Adhan Duhr
+  trigger:
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.dhuhr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+    
+#################### Automation for Asr Azan ############################
+- action:
+  - alias: 'Azan Asr'
+    data:
+      entity_id: media_player.azan_group
+#      media_content_id: https://www.islamcan.com/audio/adhan/azan6.mp3
+#      media_content_id: http://praytimes.org/audio/adhan/Sunni/Adhan%20Madina.mp3
+      media_content_id: https://media.sd.ma/assabile/adhan_3435370/83e17f5db5a7.mp3
+      media_content_type: audio/mp3
+    service: media_extractor.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.6'
+    service: media_player.volume_set
+  alias: Adhan Asr
+  trigger:
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.asr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+################### Automation for Magrib Azan ##########################
+- action:
+  - alias: 'Azan Magrib'
+    data:
+      entity_id: media_player.azan_group
+#      media_content_id: https://www.islamcan.com/audio/adhan/azan6.mp3
+      media_content_id: https://download.tvquran.com/download/selections/180/58b0d9f97eeec.mp3
+#      media_content_id: https://media.sd.ma/assabile/adhan_3435370/83e17f5db5a7.mp3
+      media_content_type: audio/mp3
+    service: media_extractor.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.6'
+    service: media_player.volume_set
+  alias: Adhan Magrib
+  trigger:
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.maghrib_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+
+################### Automation for Azan Isha ##################################
+- action:
+  - alias: 'Azan Isha'
+    data:
+      entity_id: media_player.azan_group
+#      media_content_id: https://www.islamcan.com/audio/adhan/azan6.mp3
+      media_content_id: https://download.tvquran.com/download/TvQuran.com__Athan/TvQuran.com__05.athan.mp3
+#      media_content_id: https://media.sd.ma/assabile/adhan_3435370/83e17f5db5a7.mp3
+      media_content_type: audio/mp3
+    service: media_extractor.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.6'
+    service: media_player.volume_set
+  alias: Adhan Isha
+  trigger:
+    - platform: template
+      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.isha_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+
+
+
+# 4 times azan
+#- action:
+#  - alias: 'Azan'
+#    data:
+#      entity_id: media_player.azan_group
+#      media_content_id: https://www.islamcan.com/audio/adhan/azan6.mp3
+#      media_content_id: http://praytimes.org/audio/adhan/Sunni/Adhan%20Madina.mp3
+#      media_content_id: https://media.sd.ma/assabile/adhan_3435370/83e17f5db5a7.mp3
+#      media_content_type: audio/mp3
+#    service: media_extractor.play_media
+#  - data:
+#     entity_id: media_player.azan_group
+#      volume_level: '0.7'
+#   service: media_player.volume_set
+#  alias: Adhan
+#  trigger:
+#    - platform: template
+#      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.dhuhr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+#    - platform: template
+#      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.asr_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+#    - platform: template
+#      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.maghrib_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+#    - platform: template
+#      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.isha_prayer"), "%Y-%m-%dT%H:%M:%S")) }}'
+
+
+######################### Azakaar 1 ##################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+#      entity_id: media_player.kids_speaker
+      media_content_id: https://music.watannetwork.com/musicExcel/Azkar.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+#      entity_id: media_player.kids_speaker
+      volume_level: '0.4'
+    service: media_player.play_media
+  alias: Play Azkaar Sabah
+  trigger:
+    - platform: time
+      at: "07:30:00"
+
+#########################Surah Waqiah##################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/056-al-waqiah.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.5'
+    service: media_player.play_media
+  alias: Play Surah Waqiah
+  trigger:
+   - platform: time
+     at: "18:45:00"
+
+#########################Surah Kahf##################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/018-al-kahf.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.4'
+    service: media_player.play_media
+  alias: Play Surah Kahf
+  trigger:
+    - platform: time
+      at: "6:00:00"
+    
+#########################Surah Yaseen##################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/036-ya-sin.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.4'
+    service: media_player.play_media
+  alias: Play Surah Yaseen
+  trigger:
+    - platform: time
+      at: "08:30:00"    
+    
+############################# Azakaar 2 ##################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+      media_content_id: https://music.watannetwork.com/musicExcel/Azkar2.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.4'
+    service: media_player.play_media
+  alias: Play Azkaar Masa
+  trigger:
+    - platform: time
+      at: "20:30:00"
+###############################Surah Mulk#####################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/067-al-mulk.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.5'
+    service: media_player.play_media
+  alias: Play Surah Mulk
+  trigger:
+    - platform: time
+      at: "21:30:00"
+
+###############################Surah Al-Baqarah################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+      media_content_id: https://quran.s3.fr-par.scw.cloud/medias/mp3/coran/saud_al-shuraim/saud_al-shuraim_hq_(2).mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.4'
+    service: media_player.play_media
+  alias: Play Surah AlBaqarah
+  trigger:
+    - platform: time
+      at: "13:00:00"
+
+################################### HA Restart#################################      
+
+- alias: Restart HA
+  trigger:
+    platform: time
+    at: "01:00:00"
+  action:
+    - service: homeassistant.restart
+
 # Automation for Fajr Azan
 - action:
   - alias: 'Fajr Azan'
@@ -143,7 +387,10 @@
     at: "01:00:00"
   action:
     - service: homeassistant.restart
-    
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 ##july 2021 ##final    
 # Automation for Fajr Azan
 - action:
