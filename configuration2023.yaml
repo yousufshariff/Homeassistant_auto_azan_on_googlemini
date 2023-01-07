@@ -1,0 +1,93 @@
+configuration.yaml
+
+homeassistant:
+  latitude: 37.9518641
+  longitude: -121.75956
+  elevation: 12
+  unit_system: metric
+  time_zone: America/Los_Angeles
+ 
+# Loads default set of integrations. Do not remove.
+
+default_config:
+mobile_app:
+#group: !include groups.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+automation: !include automations.yaml
+
+# Islamic prayer times integration - Chose one of those Prayer calculation method to one of those: isna, karachi, mwl, makkah
+# Important: this will change the prayer time!!!!!!!!!!
+islamic_prayer_times:
+    calculation_method: mwl
+
+sensor:
+  - platform: rest
+    name: "Prayer Times"
+    json_attributes:
+      - data
+    resource: "http://api.aladhan.com/v1/timings?latitude=37.9518641&longitude=-121.75956&method=2&school=1"
+    value_template: '{{ value_json["data"]["meta"]["method"]["name"].title() }}'
+    scan_interval: 43200
+   
+  - platform: template
+    sensors:
+      salah_fajr:
+        friendly_name: 'Fajr'
+        value_template: "{{ (as_timestamp(states('sensor.fajr_prayer')) + 300) | timestamp_custom('%Y-%m-%dT%H:%M:%S+00:00', false) }}"
+        device_class: timestamp
+      salah_dhuhr:
+        friendly_name: 'Dhuhr'
+        value_template: "{{ (as_timestamp(states('sensor.dhuhr_prayer')) + 300) | timestamp_custom('%Y-%m-%dT%H:%M:%S+00:00', false) }}"
+        device_class: timestamp
+      salah_asr:
+        friendly_name: 'Asr'
+        value_template: "{{ (as_timestamp(states('sensor.asr_prayer')) + 300) | timestamp_custom('%Y-%m-%dT%H:%M:%S+00:00', false) }}"
+        device_class: timestamp
+      salah_maghrib:
+        friendly_name: 'Maghrib'
+        value_template: "{{ (as_timestamp(states('sensor.maghrib_prayer')) + 300) | timestamp_custom('%Y-%m-%dT%H:%M:%S+00:00', false) }}"
+        device_class: timestamp
+      salah_isha:
+        friendly_name: 'Isha'
+        value_template: "{{ (as_timestamp(states('sensor.isha_prayer')) + 300) | timestamp_custom('%Y-%m-%dT%H:%M:%S+00:00', false) }}"
+        device_class: timestamp  
+
+#  - platform: template
+#    sensors:
+#      fajr:
+#        friendly_name: 'Fajr'
+#        entity_id: sensor.time
+#       value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Fajr"] | timestamp_custom("%H:%M") }}'
+#      dhuhr:
+#        friendly_name: 'Dhuhr'
+#        entity_id: sensor.time
+#        value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Dhuhr"] | timestamp_custom("%H:%M") }}'
+#      asr:
+#        friendly_name: 'Asr'
+#        entity_id: sensor.time
+#        value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Asr"] | timestamp_custom("%H:%M") }}'
+#      magrib:
+#       friendly_name: 'Magrib'
+#        entity_id: sensor.time
+#        value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Maghrib"] | timestamp_custom("%H:%M") }}'
+#      isha:
+#        friendly_name: 'Isha'
+#        entity_id: sensor.time
+#        value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Isha"] | timestamp_custom("%H:%M") }}'
+
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'time_date'
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
