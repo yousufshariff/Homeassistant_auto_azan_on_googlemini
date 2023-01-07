@@ -1,0 +1,248 @@
+# Automation for Sehri Dua
+#- action:
+#  - alias: 'Sehri Dua'
+#    data:
+#      entity_id: media_player.azan_group
+#      media_content_id: https://www.thesufi.com/Islamic-Collection/Islamic_Audio_Section/67-Islamic-Masnoon-Dua-Arabic-with-Urdu-Translation-MP3/Dua-and-Supplications--22-.mp3
+#      media_content_type: audio/mp3
+#    service: media_extractor.play_media
+#  - data:
+#      entity_id: media_player.azan_group
+#      volume_level: '0.6'
+#    service: media_player.volume_set
+#  alias: Sehri_Dua
+#  trigger:
+#    - platform: template
+#      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.fajr_prayer"), "%Y-%m-%dT%H:%M:%S")) + float(states("input_select.offset_fajr"))-35 }}'
+
+# Automation for Iftari Dua
+#- action:
+# - alias: 'Aftari Dua'
+#    data:
+#      entity_id: media_player.azan_group
+#      media_content_id: https://www.thesufi.com/Islamic-Collection/Islamic_Audio_Section/67-Islamic-Masnoon-Dua-Arabic-with-Urdu-Translation-MP3/Dua-and-Supplications--23-.mp3
+#      media_content_type: audio/mp3
+#    service: media_extractor.play_media
+#  - data:
+#      entity_id: media_player.azan_group
+#      volume_level: '0.6'
+#    service: media_player.volume_set
+#  alias: Aftari_Dua
+#  trigger:
+#    - platform: template
+#      value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d")) == as_timestamp(strptime(states("sensor.maghrib_prayer"), "%Y-%m-%dT%H:%M:%S")) + float(states("input_select.offset_maghrib"))-45 }}'
+
+
+# Automation for Fajr times Adhan(consists of 3 parts theaction, thealias and thetrigger)
+
+- action:
+    - alias: "FajrAdhann"
+      data:
+        entity_id: media_player.azan_group
+        media_content_id: https://media.sd.ma/assabile/adhan_3435370/dcc77fd7b6a1.mp3
+#        http://myip:8123/local/adhan/fajr-adhan-mansoor.mp3
+        media_content_type: audio/mp3
+      service: media_player.play_media
+    - data:
+        entity_id: media_player.azan_group
+        volume_level: "0.6"
+      service: media_player.volume_set
+  alias: Fajr_Adhann
+  condition: []
+  id: "2617794169115"
+  trigger:
+    - platform: template
+      value_template: '{{ now().timestamp()|int == as_timestamp(states("sensor.fajr_prayer")) + 1260 }}'
+
+
+# Automation for 4 times Azan
+- action:
+    - alias: "Adhann"
+      data:
+        entity_id: media_player.azan_group
+        media_content_id: https://watannetwork.com/tools/Azan.mp3
+#        http://local:8123/local/adhan/all-adhan-mishary.mp3
+        media_content_type: audio/mp3
+      service: media_player.play_media
+    - data:
+        entity_id: media_player.azan_group
+        volume_level: "0.8"
+      service: media_player.volume_set
+  alias: Adhann
+  condition: []
+  id: "1517694149312"
+  trigger:
+    - platform: template
+      value_template: '{{ now().timestamp()|int == as_timestamp(states("sensor.dhuhr_prayer")) + 240 }}'
+    - platform: template
+      value_template: '{{ now().timestamp()|int == as_timestamp(states("sensor.asr_prayer")) + 180 }}'
+    - platform: template
+      value_template: '{{ now().timestamp()|int == as_timestamp(states("sensor.maghrib_prayer")) + 360 }}'
+    - platform: template
+      value_template: '{{ now().timestamp()|int == as_timestamp(states("sensor.isha_prayer")) - 1860 }}'
+
+
+# media_content_id: https://media.sd.ma/assabile/adhan_3435370/d55c09c3357c.mp3
+# Automation for Azan
+#- id: '1517693020922'
+#  alias: Fajr Adhan
+#  trigger:
+#  - platform: template
+#    value_template: '{{ states.sensor.fajr.state == states.sensor.time.state }}'
+#  condition: []
+#  action:
+#  - data:
+#      entity_id: media_player.azan_group
+#      volume_level: '0.5'
+#    service: media_player.volume_set
+#  - alias: ''
+#    data:
+#      entity_id: media_player.azan_group
+#      media_content_id: https://media.sd.ma/assabile/adhan_3435370/dcc77fd7b6a1.mp3
+#      media_content_type: music
+#    service: media_player.play_media
+#  - delay: 00:05:00
+#  - data: {}
+#    entity_id: media_player.azan_group
+#    service: media_player.turn_off
+#  - data:
+#      entity_id: media_player.azan_group
+#      volume_level: '0.7'
+#    service: media_player.volume_set
+#  mode: restart
+
+
+#- id: '1517693020923'
+#  alias: Adhan
+#  trigger:
+#  - platform: template
+#    value_template: '{{ states.sensor.dhuhr.state == states.sensor.time.state }}'
+#  - platform: template
+#    value_template: '{{ states.sensor.asr.state == states.sensor.time.state }}'
+#  - platform: template
+#    value_template: '{{ states.sensor.magrib.state == states.sensor.time.state }}'
+#  - platform: template
+#    value_template: '{{ states.sensor.isha.state == states.sensor.time.state }}'
+#  condition: []
+#  action:
+#  - data:
+#      entity_id: media_player.azan_group
+#      volume_level: '0.6'
+#  - alias: ''
+#    data:
+#      entity_id: media_player.azan_group
+#      media_content_id: https://media.sd.ma/assabile/adhan_3435370/d55c09c3357c.mp3
+#      media_content_id: https://media.sd.ma/assabile/adhan_3435370/83a95150c12f.mp3
+#      media_content_type: music
+#   service: media_player.play_media
+#  - delay: 00:05:00
+#  - data: {}
+#    entity_id: media_player.azan_group
+#    service: media_player.turn_off
+#  - data:
+#      entity_id: media_player.azan_group
+#      volume_level: '0.7'
+#    service: media_player.volume_set
+#  mode: restart
+######################### Azakaar 1 ##################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+      media_content_id: https://music.watannetwork.com/musicExcel/Azkar.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.7'
+    service: media_player.play_media
+  alias: Play Azkaar Sabah
+  trigger:
+    - platform: time
+      at: "07:30:00"
+     
+
+#########################Surah Waqiah##################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/056-al-waqiah.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.7'
+    service: media_player.play_media
+  alias: Play Surah Waqiah
+  trigger:
+    - platform: time
+      at: "18:45:00"
+#########################Surah Kahf##################################
+#- action:
+#  - data:
+#      entity_id: media_player.azan_group
+#      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/018-al-kahf.mp3
+#      media_content_type: audio/mp3
+#    service: media_player.play_media
+#  - data:
+#      entity_id: media_player.azan_group
+#      volume_level: '0.7'
+#    service: media_player.play_media
+#  alias: Play Surah Kahf
+#  trigger:
+#    - platform: time
+#      at: "06:30:00"
+
+#########################Surah Yaseen##################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/036-ya-sin.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.7'
+    service: media_player.play_media
+  alias: Play Surah Yaseen
+  trigger:
+    - platform: time
+      at: "08:00:00"
+
+######################### Azakaar 2 ##################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+      media_content_id: https://music.watannetwork.com/musicExcel/Azkar2.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.7'
+    service: media_player.play_media
+  alias: Play Azkaar Masa
+  trigger:
+    - platform: time
+      at: "19:00:00"
+###############################Surah Mulk#####################################
+- action:
+  - data:
+      entity_id: media_player.azan_group
+      media_content_id: https://www.islamcan.com/quran-mp3/alafasy/067-al-mulk.mp3
+      media_content_type: audio/mp3
+    service: media_player.play_media
+  - data:
+      entity_id: media_player.azan_group
+      volume_level: '0.7'
+    service: media_player.play_media
+  alias: Play Surah Mulk
+  trigger:
+    - platform: time
+      at: "22:30:00"
+     
+### Restart HA to force update Islamic Time Sensors at 2AM ###
+- alias: Restart HA
+  trigger:
+    platform: time
+    at: "02:00:00"
+  action:
+    - service: homeassistant.restart
